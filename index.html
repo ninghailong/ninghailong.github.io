@@ -9,206 +9,232 @@
 <title>Hailong Ning</title>
 
 
-<!-- Section navigation: kept here so jemdoc.css does not need to be edited. -->
 <style>
-html {
-  --section-offset: 48px;
-  --page-gutter: clamp(32px, 4vw, 64px);
+/* Keep these overrides after jemdoc.css. All spacing can be tuned here. */
+:root {
   --sidebar-width: 224px;
-  --sidebar-gap: 64px;
-  --content-width: 1040px;
-  --layout-gutter: max(var(--page-gutter), calc((100vw - var(--sidebar-width) - var(--sidebar-gap) - var(--content-width)) / 2));
+  --content-width: 1000px;
+  --column-gap: 48px;
+  --page-gutter: 48px;
+  --anchor-offset: 32px;
+  --link-color: #224b8d;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html {
   scroll-behavior: smooth;
+  scroll-padding-top: var(--anchor-offset);
 }
 body {
   margin: 0;
+  padding: 0;
+  background: #fff;
+  color: #252b33;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 16px;
+  line-height: 1.65;
 }
-#section-nav {
-  box-sizing: border-box;
+a { color: var(--link-color); }
+a:focus-visible {
+  outline: 2px solid var(--link-color);
+  outline-offset: 4px;
+}
+.skip-link {
   position: fixed;
-  top: 48px;
-  left: var(--layout-gutter);
-  z-index: 1000;
-  width: var(--sidebar-width);
-  max-height: calc(100vh - 96px);
-  overflow-y: auto;
-  padding: 18px 12px;
-  background: #f7f9fc;
-  border: 1px solid #dce3ec;
-  border-radius: 8px;
-  font-family: Arial, "Microsoft YaHei", sans-serif;
-  font-size: 14px;
-  line-height: 1.5;
+  left: 16px;
+  top: -100px;
+  z-index: 100;
+  padding: 10px 16px;
+  border: 2px solid var(--link-color);
+  border-radius: 6px;
+  background: #fff;
 }
-#section-nav .section-nav-title {
-  margin: 0 10px 12px;
-  color: #65758a;
+.skip-link:focus { top: 16px; }
+
+/* A centered layout reserves generous margins on BOTH sides of the page. */
+.page-shell {
+  display: grid;
+  grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
+  align-items: start;
+  gap: var(--column-gap);
+  width: calc(100% - var(--page-gutter) * 2);
+  max-width: calc(var(--sidebar-width) + var(--column-gap) + var(--content-width));
+  margin: 0 auto;
+  padding: 48px 0 72px;
+}
+
+/* The navigation remains visible while the document scrolls. */
+.section-nav {
+  position: sticky;
+  top: 32px;
+  max-height: calc(100vh - 64px);
+  overflow-y: auto;
+  padding: 22px 14px 16px;
+  border: 1px solid #e0e6ee;
+  border-radius: 8px;
+  background: #f7f9fc;
+  font-family: Arial, "Microsoft YaHei", sans-serif;
+}
+.nav-title {
+  margin: 0 12px 14px;
+  color: #667386;
   font-size: 12px;
-  font-weight: bold;
+  font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
-#section-nav ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-#section-nav li {
-  margin: 4px 0;
-  padding: 0;
-}
-#section-nav a {
+.section-nav ul { margin: 0; padding: 0; list-style: none; }
+.section-nav li { margin: 3px 0; padding: 0; }
+.section-nav a {
   display: block;
-  box-sizing: border-box;
-  padding: 9px 10px;
+  padding: 10px 12px;
   border: 0;
-  border-left: 3px solid transparent;
-  border-radius: 4px;
-  color: #34465c;
+  border-radius: 5px;
+  color: #42526a;
+  font-size: 14px;
+  line-height: 1.5;
   text-decoration: none;
   overflow-wrap: break-word;
 }
-#section-nav a:hover,
-#section-nav a:focus-visible {
-  background: #eaf0f8;
-  color: #174d80;
+.section-nav a:hover { background: #eaf0f8; color: #163b72; }
+.section-nav a[aria-current="location"] {
+  background: #e5edf9;
+  color: #163b72;
+  font-weight: 700;
+  box-shadow: inset 3px 0 0 var(--link-color);
 }
-#section-nav a:focus-visible {
-  outline: 2px solid #245b8d;
-  outline-offset: 2px;
-}
-#section-nav a.is-active {
-  border-left-color: #245b8d;
-  background: #e3edf9;
-  color: #174d80;
-  font-weight: bold;
-}
+
+/* Override possible fixed widths and margins from the original stylesheet. */
 #container {
-  box-sizing: border-box;
-  width: auto;
-  min-width: 0;
+  width: 100%;
   max-width: var(--content-width);
-  margin: 0 var(--layout-gutter) 0 calc(var(--layout-gutter) + var(--sidebar-width) + var(--sidebar-gap));
-  padding: 56px clamp(40px, 4.5vw, 72px) 80px;
+  min-width: 0;
+  margin: 0;
+  padding: 4px 0 0;
+  overflow-wrap: anywhere;
 }
 #container > .container {
-  box-sizing: border-box;
   width: 100%;
-  min-width: 0;
   max-width: none;
   margin: 0;
   padding: 0;
 }
-.section-heading,
-#home,
-.legacy-section-anchor {
-  scroll-margin-top: var(--section-offset, 48px);
+#container h2, #home { scroll-margin-top: var(--anchor-offset); }
+#container h2 {
+  margin: 44px 0 18px;
+  padding: 0 0 9px;
+  border-bottom: 1px solid #d8e1ec;
+  color: var(--link-color);
+  font-size: 25px;
+  line-height: 1.4;
 }
-.section-heading:focus {
-  outline-offset: 6px;
-}
+#container p { margin: 0 0 16px; }
+#container ul { margin: 12px 0 22px; padding-left: 24px; }
+#container li { margin-bottom: 8px; }
+#container font[size="2"] { font-size: 15px; }
+#container h2 font[size="2"] { font-size: 14px; }
+#container img { max-width: 100%; }
 #container .imgtable {
-  max-width: 100%;
+  width: 100%;
+  margin: 0;
+  border: 0;
+  border-collapse: collapse;
 }
-#container td {
-  overflow-wrap: anywhere;
+#container .imgtable td { border: 0; }
+#container .profile-table td { padding: 0; vertical-align: middle; }
+#container .profile-table td:first-child { width: 174px; padding-right: 28px; }
+#container .profile-table td:first-child img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-height: 180px;
 }
-@media (max-width: 860px) {
-  html {
-    --section-offset: 84px;
-  }
-  #section-nav {
-    position: sticky;
-    top: 0;
-    left: auto;
-    width: 100%;
-    max-height: none;
-    overflow-y: visible;
-    padding: 12px clamp(24px, 4vw, 40px);
-    background: #fff;
-    border-width: 0 0 1px;
-    border-radius: 0;
-  }
-  #section-nav .section-nav-title {
-    display: none;
-  }
-  #section-nav ul {
-    display: flex;
-    gap: 6px;
-    overflow-x: auto;
-    padding: 2px;
-  }
-  #section-nav li {
-    flex: 0 0 auto;
-    margin: 0;
-  }
-  #section-nav a {
-    white-space: nowrap;
-  }
-  #container {
-    max-width: none;
-    margin: 0;
-    padding: 40px clamp(32px, 6vw, 48px) 64px;
-  }
+#container .profile-table p { margin: 0; }
+#container .publications-table { table-layout: fixed; }
+#container .publications-table td { padding: 18px 0; vertical-align: top; }
+#container .publications-table td:first-child { width: 208px; padding-right: 28px; }
+#container .publications-table tr:not(:last-child) { border-bottom: 1px solid #edf0f4; }
+#container .publications-table .proj_thumb {
+  display: block;
+  width: 180px;
+  height: auto;
+  margin: 0;
+}
+#container .publications-table .pub_title {
+  margin: 0 0 8px;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+#container .publications-table .pub_author {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+@media (max-width: 1100px) {
+  :root { --sidebar-width: 200px; --column-gap: 32px; --page-gutter: 32px; }
+}
+@media (max-width: 900px) {
+  .page-shell { display: block; max-width: var(--content-width); padding-top: 32px; }
+  .section-nav { position: static; max-height: none; margin-bottom: 32px; padding: 18px 14px; }
+  .nav-title { margin-bottom: 10px; }
+  .section-nav ul { display: flex; flex-wrap: wrap; gap: 4px; }
+  .section-nav li { margin: 0; }
+  .section-nav a { padding: 9px 12px; }
 }
 @media (max-width: 600px) {
-  #container .imgtable,
-  #container .imgtable > tbody,
-  #container .imgtable > tbody > tr,
-  #container .imgtable > tbody > tr > td {
-    display: block;
-    width: auto;
-  }
-  #container .imgtable > tbody > tr {
-    margin-bottom: 20px;
-  }
-  #container .imgtable img {
-    max-width: 100%;
-    object-fit: contain;
-  }
+  :root { --page-gutter: 20px; --anchor-offset: 24px; }
+  .page-shell { padding: 24px 0 48px; }
+  .section-nav { margin-bottom: 28px; padding: 16px 10px; }
+  .section-nav a { font-size: 13px; }
+  #container h2 { margin-top: 36px; font-size: 23px; }
+  #container .imgtable, #container .imgtable tbody,
+  #container .imgtable tr, #container .imgtable td { display: block; width: 100%; }
+  #container .profile-table td:first-child { width: 100%; padding: 0 0 20px; }
+  #container .profile-table td:first-child img { max-height: 160px; }
+  #container .publications-table tr { padding: 20px 0; }
+  #container .publications-table td { padding: 0; }
+  #container .publications-table td:first-child { width: 100%; padding: 0 0 12px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
+  html { scroll-behavior: auto; }
 }
 @media print {
-  #section-nav {
-    display: none;
-  }
-  #container {
-    max-width: none;
-    margin: 0;
-    padding: 0;
-  }
+  @page { margin: 20mm; }
+  .section-nav, .skip-link { display: none; }
+  .page-shell { display: block; width: 100%; max-width: none; margin: 0; padding: 0; }
+  #container { max-width: none; }
+  html { scroll-behavior: auto; }
+  #container h2 { break-after: avoid; }
+  #container .publications-table tr { break-inside: avoid; }
 }
 </style>
 
 </head>
 <body>
 
-<!-- Links work as ordinary anchors even when JavaScript is disabled. -->
-<nav id="section-nav" aria-label="Page sections">
-  <p class="section-nav-title">Navigation</p>
-  <ul>
-    <li><a href="#home">Home / Top</a></li>
-    <li><a href="#biography">Biography</a></li>
-    <li><a href="#publications">Selected Publications</a></li>
-    <li><a href="#honors">Honors</a></li>
-    <li><a href="#fundings">Fundings</a></li>
-    <li><a href="#talks">Invited Talks</a></li>
-    <li><a href="#educational-achievements">Educational Achievements</a></li>
-    <li><a href="#services">Professional Services</a></li>
-    <li><a href="#cooperation">Cooperation &amp; Communication</a></li>
-  </ul>
-</nav>
+<a class="skip-link" href="#container">Skip to content</a>
+<div class="page-shell">
+  <nav class="section-nav" aria-label="Page sections">
+    <p class="nav-title">On this page</p>
+    <ul>
+      <li><a href="#home" aria-current="location">Home</a></li>
+      <li><a href="#biography">Biography</a></li>
+      <li><a href="#publications">Selected Publications</a></li>
+      <li><a href="#honors">Honors</a></li>
+      <li><a href="#fundings">Fundings</a></li>
+      <li><a href="#talks">Invited Talks</a></li>
+      <li><a href="#educational-achievements">Educational Achievements</a></li>
+      <li><a href="#services">Professional Services</a></li>
+      <li><a href="#Cooperation">Cooperation &amp; Communication</a></li>
+    </ul>
+  </nav>
+  <main id="container" tabindex="-1">
+  <div class="container"> 
 
-
-<a id="home" class="anchor" tabindex="-1"></a>
-<div id="container"> 
-<div class="container"> 
-
-<table class="imgtable">
+<header id="home" tabindex="-1">
+<table class="imgtable profile-table">
 <tr>
 <td> <a href="./"><img src="./images/hailong.jpg" alt="" height="180px" /></a>&nbsp;</td>
 <td align="left">
@@ -229,21 +255,22 @@ Email: ninghailong@xupt.edu.cn; ninghailong93@gmail.com
 </p>
 </td>
 </tr></table>
+</header>
 
   
-<h2 id="biography" class="section-heading" tabindex="-1">Biography</h2>
+<h2 id="biography" tabindex="-1">Biography</h2>
 <p style="text-align:justify"> 
-I am currently an associate professor in the School of Computer Science and Technology, XI'AN University of Posts and Telecommunications</a>. Before that, I obtained my bachelor's degree from <a href="https://www.xjtu.edu.cn/index.htm"> Xi'an Jiaotong University (XJTU)</a> in 2016, and I obtained the PhD degree from the <a href="https://www.opt.ac.cn/"> Xi’an Institute of Optics and Precision Mechanics</a>, <a href="https://www.ucas.ac.cn/"> University of Chinese Academy of Sciences (UCAS)</a> in 2021, supervised by <a href="https://iopen.nwpu.edu.cn/info/1015/4866.htm">Yuan Yuan（袁媛）</a>, <a href="https://scholar.google.com.hk/citations?user=FRyuu2IAAAAJ&amp;hl=zh-CN">Xiaoqiang Lu（卢孝强）</a>, <a href="https://xiangtaozheng.github.io/">Xiangtao Zheng（郑向涛）</a>, and <a href="https://iopen.nwpu.edu.cn/info/1251/1852.htm">Bin Zhao（赵斌）</a>. What I met, told and learned in the Center for OPTical IMagery Analysis and Learning (OPTIMAL) led by Prof. <a href="http://xuelongli.cn/">Xuelong Li（李学龙）</a> have undoubtedly made great impacts on me. Great Thanks!
+I am currently an associate professor in the School of Computer Science and Technology, XI'AN University of Posts and Telecommunications. Before that, I obtained my bachelor's degree from <a href="https://www.xjtu.edu.cn/index.htm"> Xi'an Jiaotong University (XJTU)</a> in 2016, and I obtained the PhD degree from the <a href="https://www.opt.ac.cn/"> Xi’an Institute of Optics and Precision Mechanics</a>, <a href="https://www.ucas.ac.cn/"> University of Chinese Academy of Sciences (UCAS)</a> in 2021, supervised by <a href="https://iopen.nwpu.edu.cn/info/1015/4866.htm">Yuan Yuan（袁媛）</a>, <a href="https://scholar.google.com.hk/citations?user=FRyuu2IAAAAJ&amp;hl=zh-CN">Xiaoqiang Lu（卢孝强）</a>, <a href="https://xiangtaozheng.github.io/">Xiangtao Zheng（郑向涛）</a>, and <a href="https://iopen.nwpu.edu.cn/info/1251/1852.htm">Bin Zhao（赵斌）</a>. What I met, told and learned in the Center for OPTical IMagery Analysis and Learning (OPTIMAL) led by Prof. <a href="http://xuelongli.cn/">Xuelong Li（李学龙）</a> have undoubtedly made great impacts on me. Great Thanks!
 </p>
 
 
 <!-- Project -->
-<h2 id="publications" class="section-heading" tabindex="-1">Selected Publications
+<h2 id="publications" tabindex="-1">Selected Publications
 <a style="color:Black" class="p1" href="https://scholar.google.com.hk/citations?user=6GUr2HIAAAAJ&hl=zh-CN" target="_blank">
     <font size="2"> [Full List]</font></a> <font size="2">(*Corresponding author)</font>
 </h2>
 
-<table class="imgtable">
+<table class="imgtable publications-table">
 
 <tr>
 <td><img class="proj_thumb" src="./images/LSFC-Net.png" alt="" height="90px" width="180px" />&nbsp;</td>
@@ -367,7 +394,7 @@ IEEE Transactions on Geoscience and Remote Sensing (<b>TGRS</b>), 2025. (<a styl
 <td>
 <p class="pub_title">Neural Collapse Inspired Semi-Supervised Learning with Fixed Classifier</p>
 <p class="pub_author">Zhanxuan Hu, Yichen Wang, <b>Hailong Ning</b>, Yonghang Tai*, and Feiping Nie<br>
-Information Sciences, 2024. (<a style="color:#990000;">SCI二区</b></a>)<br>
+Information Sciences, 2024. (<a style="color:#990000;">SCI二区</a>)<br>
 [<a href="https://www.sciencedirect.com/science/article/abs/pii/S0020025524003827" target="_blank">Paper</a>]
 [<a href="https://github.com/yichenwang231/ETFSSL" target="_blank">Code</a>]
 </p> </td>
@@ -430,7 +457,7 @@ International Journal of Applied Earth Observation and Geoinformation (<b>JAG</b
 <td>
 <p class="pub_title">Lightweight Structure-aware Transformer Network for Remote Sensing Image Change Detection</p>
 <p class="pub_author">Tao Lei, Yetong Xu, <b>Hailong Ning*</b>, Zhiyong Lv, Chongdan Min, Yaochu Jin, and Asoke K Nandi<br>
-IEEE Geoscience and Remote Sensing Letters, 2023. (<a style="color:#990000;"><b>SCI三区</b>)</a><br>
+IEEE Geoscience and Remote Sensing Letters, 2023. (<a style="color:#990000;"><b>SCI三区</b></a>)<br>
 [<a href="https://ieeexplore.ieee.org/abstract/document/10286068" target="_blank">Paper</a>]
 [Code]
 </p> </td>
@@ -550,7 +577,7 @@ IEEE Transactions on Cybernetics, (<b>TCYB</b>), 2019. (<a style="color:#990000;
 </table>
 
 <!--Honors -->
-<h2 id="honors" class="section-heading" tabindex="-1">Honors</h2>
+<h2 id="honors" tabindex="-1">Honors</h2>
 <font size="2">
 <ul>
 <li> 陕西省科技进步三等奖 (2026)</li>
@@ -569,7 +596,7 @@ IEEE Transactions on Cybernetics, (<b>TCYB</b>), 2019. (<a style="color:#990000;
 </ul>
 </font>
 
-<h2 id="fundings" class="section-heading" tabindex="-1">Fundings </h2>
+<h2 id="fundings" tabindex="-1">Fundings </h2>
 <font size="2">
 <ul>
 <li>  2023年1月-2025年12月，面向海量遥感影像数据的跨模态细粒度智能检索方法研究，国家自然科学基金委青年科学基金项目，主持。</li>
@@ -586,23 +613,22 @@ IEEE Transactions on Cybernetics, (<b>TCYB</b>), 2019. (<a style="color:#990000;
   
   
 <!-- Talks-->
-<h2 id="talks" class="section-heading" tabindex="-1">Invited Talks</h2>
+<h2 id="talks" tabindex="-1">Invited Talks</h2>
 <font size="2"> 
 <ul> 
-<li> 2026.08.12 Talk at 2026 CCF数字农业分会年会暨第四届CCF数字农业大会 [作物农业智能监测与病虫害防控论坛 | 复杂场景遥感变化检测与农业应用展望]</a> </li>
-<li> 2026.06.27 Talk at 2026年全国高等学校计算机课程教育大会 [面向大模型长上下文维护的线性表设计]</a> </li>
-<li> 2026.05.15 Talk at 2026 第三届“华山论剑”计算机视觉前沿技术论坛暨第七届视觉计算与智慧医疗研讨会 [青年学者成长论坛 | 航拍影像数据的跨域协同认知方法研究]</a> </li>
-<li> 2025.09.13 Talk at ACAIT 2025 [分会报告 | Knowledge-augmented Asymmetric Vision-language Foundation Model for Remote Sensing Image-text Retrieval]</a> </li>
-<li> 2024.11.09 Talk at ACAIT 2024 [智能科学与技术一级学科硕士点建设院长/系主任论坛]</a> </li>
-<li> 2024.10.22 Talk at Inspur [视听多模态认知学习初探]</a>  </li>
-<li> 2022.06.10 Talk at Central China Normal University [视听交融-多模态认知学习的初探]</a>  </li>
+<li> 2026.08.12 Talk at 2026 CCF数字农业分会年会暨第四届CCF数字农业大会 [作物农业智能监测与病虫害防控论坛 | 复杂场景遥感变化检测与农业应用展望]</li>
+<li> 2026.06.27 Talk at 2026年全国高等学校计算机课程教育大会 [面向大模型长上下文维护的线性表设计]</li>
+<li> 2026.05.15 Talk at 2026 第三届“华山论剑”计算机视觉前沿技术论坛暨第七届视觉计算与智慧医疗研讨会 [青年学者成长论坛 | 航拍影像数据的跨域协同认知方法研究]</li>
+<li> 2025.09.13 Talk at ACAIT 2025 [分会报告 | Knowledge-augmented Asymmetric Vision-language Foundation Model for Remote Sensing Image-text Retrieval]</li>
+<li> 2024.11.09 Talk at ACAIT 2024 [智能科学与技术一级学科硕士点建设院长/系主任论坛]</li>
+<li> 2024.10.22 Talk at Inspur [视听多模态认知学习初探]</li>
+<li> 2022.06.10 Talk at Central China Normal University [视听交融-多模态认知学习的初探]</li>
 </ul>
 </font>
 
 
 <!--Educational Achievements -->
-<a id="Educational Achievements" class="anchor legacy-section-anchor"></a>
-<h2 id="educational-achievements" class="section-heading" tabindex="-1">Educational Achievements</h2>
+<h2 id="educational-achievements" tabindex="-1">Educational Achievements</h2>
 <font size="2">
 <ul>
 <li> 2026.09，西安邮电大学2026年优秀本科教学研究奖（优秀课堂教学案例）。 </li>
@@ -620,7 +646,7 @@ IEEE Transactions on Cybernetics, (<b>TCYB</b>), 2019. (<a style="color:#990000;
 
 
 <!-- Services -->
-<h2 id="services" class="section-heading" tabindex="-1">Professional Services</h2>
+<h2 id="services" tabindex="-1">Professional Services</h2>
 
 <p>Workshop/Special Topic Chair:  </p>
 <font size="2"> 
@@ -686,8 +712,7 @@ and Artificial Intelligence (IEEE PRMVAI 2026), Special Topic on Visual Intellig
 
 
 <!--Cooperation -->
-<a id="Cooperation" class="anchor legacy-section-anchor"></a>
-<h2 id="cooperation" class="section-heading" tabindex="-1">Cooperation & Communication</h2>
+<h2 id="Cooperation" tabindex="-1">Cooperation &amp; Communication</h2>
 <font size="2">
 <ul>
 <li>Shaanxi University of Science and Technology: <a href="https://scholar.google.com.hk/citations?user=nLpRqykAAAAJ&hl=zh-CN" target="_blank" rel="external">Tao Lei</a></li>
@@ -705,90 +730,54 @@ and Artificial Intelligence (IEEE PRMVAI 2026), Special Topic on Visual Intellig
 All Rights Reserved. Part of page is generated by <a href="http://jemdoc.jaboc.net/">jemdoc</a>.
 -->
 
-</div>
-</div>
-</div>
-</div>
+</div><!-- /footer-text -->
+</div><!-- /footer -->
+</div><!-- /container -->
+</main>
+</div><!-- /page-shell -->
 
 <script>
 (function () {
-  "use strict";
-
-  var navigation = document.getElementById("section-nav");
-  var list = navigation.querySelector("ul");
-  var links = Array.prototype.slice.call(navigation.querySelectorAll('a[href^="#"]'));
-  var sections = links.map(function (link) {
-    return document.getElementById(link.getAttribute("href").slice(1));
+  'use strict';
+  var links = Array.prototype.slice.call(document.querySelectorAll('.section-nav a'));
+  var targets = links.map(function (link) {
+    return document.getElementById(link.getAttribute('href').slice(1));
   });
-  var mobile = window.matchMedia("(max-width: 860px)");
   var scheduled = false;
-  var activeIndex = -1;
 
-  function updateOffset() {
-    var offset = mobile.matches ? navigation.offsetHeight + 20 : 48;
-    document.documentElement.style.setProperty("--section-offset", offset + "px");
-    scheduleUpdate();
-  }
-
-  function highlight(index) {
-    if (index === activeIndex) return;
-    activeIndex = index;
-    links.forEach(function (link, i) {
-      var active = i === index;
-      link.classList.toggle("is-active", active);
-      if (active) {
-        link.setAttribute("aria-current", "location");
-      } else {
-        link.removeAttribute("aria-current");
-      }
-    });
-
-    // Keep the selected item visible in the horizontal menu on small screens.
-    if (mobile.matches) {
-      var itemRect = links[index].getBoundingClientRect();
-      var listRect = list.getBoundingClientRect();
-      if (itemRect.left < listRect.left || itemRect.right > listRect.right) {
-        list.scrollLeft += itemRect.left - listRect.left -
-          (list.clientWidth - itemRect.width) / 2;
-      }
-    }
-  }
-
-  function updateActiveSection() {
+  function updateNavigation() {
     scheduled = false;
-    var threshold = (mobile.matches ? navigation.offsetHeight + 20 : 48) + 8;
     var current = 0;
-    sections.forEach(function (section, index) {
-      if (section && section.getBoundingClientRect().top <= threshold) {
-        current = index;
-      }
+    targets.forEach(function (target, index) {
+      if (target && target.getBoundingClientRect().top <= 80) current = index;
     });
-    // Short final sections may never reach the top of the viewport.
-    var root = document.documentElement;
-    if (root.scrollHeight > window.innerHeight &&
-        window.scrollY + window.innerHeight >= root.scrollHeight - 2) {
-      current = sections.length - 1;
+    // The final section may be too short to reach the top of the viewport.
+    if (window.scrollY > 0 && window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2) {
+      current = targets.length - 1;
     }
-    highlight(current);
+    links.forEach(function (link, index) {
+      if (index === current) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
   }
 
   function scheduleUpdate() {
     if (!scheduled) {
       scheduled = true;
-      window.requestAnimationFrame(updateActiveSection);
+      window.requestAnimationFrame(updateNavigation);
     }
   }
 
-  window.addEventListener("scroll", scheduleUpdate, { passive: true });
-  window.addEventListener("resize", updateOffset);
-  window.addEventListener("hashchange", scheduleUpdate);
-  window.addEventListener("load", updateOffset);
-  if (window.ResizeObserver) {
-    new ResizeObserver(updateOffset).observe(navigation);
-  }
-  updateOffset();
+  // Native anchors provide URL fragments, browser history and a no-JS fallback.
+  window.addEventListener('scroll', scheduleUpdate, { passive: true });
+  window.addEventListener('resize', scheduleUpdate);
+  window.addEventListener('hashchange', scheduleUpdate);
+  window.addEventListener('load', scheduleUpdate);
+  window.addEventListener('pageshow', scheduleUpdate);
+  updateNavigation();
 }());
 </script>
 
 </body>
 </html>
+
